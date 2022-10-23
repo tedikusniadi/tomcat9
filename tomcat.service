@@ -1,0 +1,20 @@
+[Unit]
+Description = Apache Tomcat v9.0
+After = syslog.target network.target
+
+[Service]
+User=tedi
+Group=tedi
+
+Environment="CATALINA_OPTS=-server -Xms2048m -Xmx2048m -XX:SurvivorRatio=2 -XX:+UseG1GC -XX:+DisableExplicitGC -XX:+UnlockDiagnosticVMOptions -Djava.awt.headless=true -Dorg.apache.el.parser.SKIP_IDENTIFIER_CHECK=true"
+Environment="JAVA_HOME=/opt/java"
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/opt/tomcat/bin/shutdown.sh
+Type = forking
+
+TimeoutStartSec=0
+TimeoutStopSec=0
+
+[Install]
+WantedBy = multi-user.target
